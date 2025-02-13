@@ -2,6 +2,7 @@ import { useChatsStore } from '@/store/useChatsStore'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { UserCircle2 } from 'lucide-react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router'
 import { Button } from '../ui/button'
 import { Form, FormControl, FormField, FormItem } from '../ui/form'
 import { Input } from '../ui/input'
@@ -11,6 +12,7 @@ import { useSendMessage } from './useSendMessage'
 import { SendMessageSchema } from './validation'
 
 export function ActiveChat() {
+	const navigation = useNavigate()
 	const { activeChat, messages } = useChatsStore()
 	const sendMessageForm = useForm<{ message: string }>({
 		resolver: yupResolver(SendMessageSchema),
@@ -26,9 +28,15 @@ export function ActiveChat() {
 	const onSubmit = (data: { message: string }) => {
 		create(data)
 	}
-
+	const onDeleteInstance = () => {
+		localStorage.removeItem('user-instance')
+		localStorage.removeItem('green-chats')
+		navigation(0)
+	}
 	return (
 		<div className='col-span-8 bg-[#f0f2f5] h-[94vh] flex flex-col '>
+			<Button onClick={onDeleteInstance}>Удалить инстанс и токен</Button>
+
 			{activeChat ? (
 				<>
 					<div className='bg-gray-200 text-xl flex gap-3 items-center px-4 py-6'>

@@ -32,7 +32,8 @@ export function useSendMessage(
 			})
 			reset()
 		},
-		onError() {
+		onError(err) {
+			console.log(err)
 			toast.error('Что то пошло не так')
 		},
 	})
