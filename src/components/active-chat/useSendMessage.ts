@@ -17,6 +17,7 @@ export function useSendMessage(
 		mutationKey: ['send_message'],
 		mutationFn: (data: { message: string }) =>
 			messageService.sendMessage(
+				String(userInstance?.apiUrl),
 				`${activeChat}@c.us`,
 				data.message,
 				String(userInstance?.idInstance),

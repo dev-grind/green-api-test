@@ -6,21 +6,26 @@ export type IGetMessageResponse = {
 }
 export const messageService = {
 	async sendMessage(
+		apiUrl: string,
 		chatId: string,
 		message: string,
 		idInstance: string,
 		apiTokenInstance: string
 	) {
 		const response = await axiosClassic.post(
-			`https://7103.api.greenapi.com
+			`${apiUrl}
 /waInstance${idInstance}/sendMessage/${apiTokenInstance}`,
 			{ chatId: chatId, message: message }
 		)
 		return response.data
 	},
-	async getMessages(idInstance: string, apiTokenInstance: string) {
+	async getMessages(
+		apiUrl: string,
+		idInstance: string,
+		apiTokenInstance: string
+	) {
 		const response = await axiosClassic.get<IGetMessageResponse>(
-			`https://7103.api.greenapi.com
+			`${apiUrl}
 /waInstance${idInstance}/receiveNotification/${apiTokenInstance}`
 		)
 		return response.data

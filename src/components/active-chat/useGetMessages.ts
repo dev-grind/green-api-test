@@ -12,6 +12,7 @@ export function useGetMessages() {
 		queryKey: ['get_messages', activeChat],
 		queryFn: () =>
 			messageService.getMessages(
+				String(userInstance?.apiUrl),
 				String(userInstance?.idInstance),
 				String(userInstance?.apiTokenInstance)
 			),

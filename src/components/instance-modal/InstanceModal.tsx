@@ -26,6 +26,7 @@ type Props = {
 	setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 type CreateInstance = {
+	apiUrl: string
 	idInstance: string
 	apiTokenInstance: string
 }
@@ -36,6 +37,7 @@ export function InstanceModal({ isOpen, setIsOpen }: Props) {
 		mode: 'all',
 		resolver: yupResolver(createInstanceSchema),
 		defaultValues: {
+			apiUrl: '',
 			idInstance: '',
 			apiTokenInstance: '',
 		},
@@ -58,6 +60,19 @@ export function InstanceModal({ isOpen, setIsOpen }: Props) {
 				</AlertDialogTitle>
 				<Form {...instanceForm}>
 					<form onSubmit={handleSubmit(onSubmit)} className='grid gap-4'>
+						<FormField
+							control={control}
+							name='apiUrl'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>apiUrl</FormLabel>
+									<FormControl>
+										<Input placeholder='Введите apiUrl' {...field} />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
 						<FormField
 							control={control}
 							name='idInstance'
